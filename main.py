@@ -16,6 +16,7 @@ def main_decorator(my_path):
             with open(f'{my_path}logs.txt', 'w') as f:
                 f.write(f'{current_datetime}, название функции - {func.__name__}, аргументы функции - {args, kwargs},'
                         f'возвращаемое значение - {result}\n')
+            return result
         return logger
     return sub_decorator
 
@@ -25,7 +26,6 @@ main_decorator(path)
 
 class FlatIterator:
 
-    @main_decorator(path)
     def __init__(self, my_list):
         self.my_list = my_list
 
@@ -34,6 +34,7 @@ class FlatIterator:
         self.sub_cursor = -1
         return self
 
+    @main_decorator(path)
     def __next__(self):
         if self.sub_cursor + 1 < len(self.my_list[self.cursor]):
             self.sub_cursor += 1
